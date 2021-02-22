@@ -12,13 +12,6 @@ temp/
 node_modules
 
 
-#       NYC       #
-###################
-coverage
-*.lcov
-.nyc_output
-
-
 #      Files      #
 ###################
 .cache
