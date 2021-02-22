@@ -1,0 +1,49 @@
+{
+    "name": "revabot",
+    "description": "The last bot you'll ever need.",
+    "version": "0.0.1",
+    "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Revadike/RevaBot"
+    },
+    "author": "Revadike <revadike@outlook.com> (https://revadike.com)",
+    "contributors": [
+        "Revadike <revadike@outlook.com> (https://revadike.com)"
+    ],
+    "license": "MIT",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node index.js"
+    },
+    "keywords": [
+        "revadike",
+        "revabot",
+        "lass",
+        "express",
+        "mongodb",
+        "mongoose",
+        "plugins",
+        "extensions",
+        "components",
+        "personal",
+        "node.js"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "@commitlint/cli": "latest",
+        "@commitlint/config-conventional": "latest",
+        "ava": "latest",
+        "codecov": "latest",
+        "cross-env": "latest",
+        "eslint": "latest"
+    },
+    "engines": {
+        "node": ">= 10"
+    },
+    "bugs": {
+        "url": "https://github.com/Revadike/RevaBot/issues",
+        "email": "revadike@outlook.com"
+    },
+    "homepage": "https://github.com/Revadike/RevaBot"
+}

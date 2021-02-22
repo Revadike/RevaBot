@@ -1,0 +1,9 @@
+class App {
+
+    constructor(config) {
+        this.config = { ...config };
+    }
+
+}
+
+module.exports = App;
