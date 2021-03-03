@@ -12,8 +12,16 @@ temp/
 node_modules
 
 
+#     Private     #
+###################
+*.my.js
+*.my.json
+
+
 #      Files      #
 ###################
 .cache
 *.log
+*.lnk
 *.bat
+*.private.js
