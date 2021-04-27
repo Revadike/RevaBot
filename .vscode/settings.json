@@ -1,0 +1,8 @@
+{
+    "eslint.enable": true,
+    "eslint.format.enable": true,
+    "editor.formatOnSave": true,
+    "eslint.alwaysShowStatus": true,
+    "prettier.requireConfig": true,
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+}

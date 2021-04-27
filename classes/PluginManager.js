@@ -1,9 +1,5 @@
-let PluginList = { ...require("./resources/PluginList.js") };
-try {
-    PluginList = { ...PluginList, ...require("./resources/PluginList.my.js") };
-} catch (error) {
-    // Assuming no private plugin list
-}
+const globalModules = require("global-modules");
+const readPkgs = require("read-pkgs");
 
 class PluginManager {
 
@@ -17,24 +13,27 @@ class PluginManager {
         return Database.getInstanceSettings(name);
     }
 
-    static async createInstance(name) {
-        let pkg = PluginList[name];
-        let Plugin = require(pkg);
+    static async createInstance(name, location) {
+        name = name.replace("@revaplugin/", "");
+        let Plugin = require(location);
         let settings = await PluginManager.getInstanceSettings(name);
         let instance = new Plugin(settings);
-        return instance;
+        PluginManager.instances[name] = instance;
     }
 
     static async getInstance(name) {
         if (!PluginManager.instances[name]) {
-            PluginManager.instances[name] = await PluginManager.createInstance(name);
+            await PluginManager.createInstance(name);
         }
 
-        return PluginManager.instance[name];
+        return PluginManager.instances[name];
     }
 
-    static loadAll() {
-        Object.keys(PluginList).forEach(name => PluginManager.createInstance(name));
+    static async loadAll() {
+        let pkgs = await readPkgs(`(./npm_modules/*|${globalModules}/*)`);
+
+        // [{directory: packages/packageOne, pkg: PACKAGEDATA}, {directory: packages/packageTwo, pkg: PACKAGEDATA}]
+        pkgs.forEach((pkg) => PluginManager.createInstance(pkg.name, pkg.directory));
     }
 
 }

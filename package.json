@@ -1,7 +1,7 @@
 {
     "name": "revabot",
     "description": "The last bot you'll ever need.",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "main": "index.js",
     "repository": {
         "type": "git",
@@ -17,17 +17,26 @@
         "start": "node index.js"
     },
     "keywords": [
+        "node.js",
         "revadike",
         "revabot",
-        "lass",
-        "express",
-        "mongodb",
-        "mongoose",
-        "plugins",
+        "bot",
+        "orm",
+        "database",
+        "web poral",
+        "admin panel",
+        "tasks",
+        "task manager",
+        "task scheduler",
+        "events",
+        "event manager",
         "extensions",
         "components",
-        "personal",
-        "node.js"
+        "plugins",
+        "plugin manager",
+        "autodiscover",
+        "ladjs",
+        "breejs"
     ],
     "dependencies": {},
     "devDependencies": {
