@@ -1,8 +1,10 @@
 # Other
 *.lnk
 *.bat
+*.code-workspace
 package-lock.json
 tasks/custom/
+data/
 
 # Logs
 logs

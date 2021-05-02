@@ -1,24 +1,32 @@
 const globalModules = require("global-modules");
 const readPkgs = require("read-pkgs");
+const path = require("path");
 
-class PluginManager {
+module.exports = class PluginManager {
+
+    static instances = {}
 
     static getInstanceSettings(name) {
-        let { Database } = PluginManager.instances;
-        if (!Database) {
+        let { database } = PluginManager.instances;
+        if (!database) {
             // Load default settings?
             throw new Error("Database must be initialized first");
         }
 
-        return Database.getInstanceSettings(name);
+        return database.getInstanceSettings(name);
     }
 
     static async createInstance(name, location) {
         name = name.replace("@revaplugin/", "");
-        let Plugin = require(location);
+        if (PluginManager.instances[name]) {
+            return PluginManager.instances[name];
+        }
+
+        let Plugin = require(path.resolve(location));
         let settings = await PluginManager.getInstanceSettings(name);
         let instance = new Plugin(settings);
         PluginManager.instances[name] = instance;
+        return instance;
     }
 
     static async getInstance(name) {
@@ -30,12 +38,14 @@ class PluginManager {
     }
 
     static async loadAll() {
-        let pkgs = await readPkgs(`(./npm_modules/*|${globalModules}/*)`);
+        let pkgLocations = [
+            "../@revaplugin/*",
+            "./npm_modules/@revaplugin/*",
+            `${globalModules}/@revaplugin/*`,
+        ];
 
-        // [{directory: packages/packageOne, pkg: PACKAGEDATA}, {directory: packages/packageTwo, pkg: PACKAGEDATA}]
-        pkgs.forEach((pkg) => PluginManager.createInstance(pkg.name, pkg.directory));
+        let pkgs = await readPkgs(pkgLocations);
+        await Promise.all(pkgs.map(({ directory, pkg }) => PluginManager.createInstance(pkg.name, directory)));
     }
 
-}
-
-module.exports = { PluginManager };
+};

@@ -1,7 +1,7 @@
 {
     "name": "revabot",
     "description": "The last bot you'll ever need.",
-    "version": "0.0.2",
+    "version": "0.1.0",
     "main": "index.js",
     "repository": {
         "type": "git",
@@ -11,7 +11,7 @@
     "contributors": [
         "Revadike <revadike@outlook.com> (https://revadike.com)"
     ],
-    "license": "MIT",
+    "license": "GPL-3.0-or-later",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "node index.js"
@@ -21,7 +21,7 @@
         "revadike",
         "revabot",
         "bot",
-        "orm",
+        "typeorm",
         "database",
         "web poral",
         "admin panel",
@@ -38,13 +38,11 @@
         "ladjs",
         "breejs"
     ],
-    "dependencies": {},
+    "dependencies": {
+        "@revaplugin/database": "latest"
+    },
     "devDependencies": {
-        "@commitlint/cli": "latest",
-        "@commitlint/config-conventional": "latest",
-        "ava": "latest",
-        "codecov": "latest",
-        "cross-env": "latest",
+        "@babel/eslint-parser": "latest",
         "eslint": "latest"
     },
     "engines": {
