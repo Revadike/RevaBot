@@ -1,52 +1,79 @@
 {
     "name": "revabot",
     "description": "The last bot you'll ever need.",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "main": "index.js",
     "repository": {
         "type": "git",
         "url": "https://github.com/Revadike/RevaBot"
     },
-    "author": "Revadike <revadike@outlook.com> (https://revadike.com)",
+    "author": "anonymous node/sails user",
     "contributors": [
         "Revadike <revadike@outlook.com> (https://revadike.com)"
     ],
-    "license": "GPL-3.0-or-later",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node index.js"
-    },
+    "license": "",
     "keywords": [
-        "node.js",
-        "revadike",
-        "revabot",
-        "bot",
-        "typeorm",
-        "database",
-        "web poral",
         "admin panel",
-        "tasks",
+        "autodiscover",
+        "bot",
+        "components",
+        "dashboard",
+        "database",
+        "ejs",
+        "event manager",
+        "events",
+        "extensions",
+        "node.js",
+        "orm",
+        "plugin manager",
+        "plugins",
+        "revabot",
+        "revadike",
+        "revaplugin",
+        "sails.js",
+        "sails",
+        "sailsjs",
+        "scheduler",
         "task manager",
         "task scheduler",
-        "events",
-        "event manager",
-        "extensions",
-        "components",
-        "plugins",
-        "plugin manager",
-        "autodiscover",
-        "ladjs",
-        "breejs"
+        "tasks",
+        "web portal"
     ],
     "dependencies": {
-        "@revaplugin/database": "latest"
+        "@revaplugin/revaplugin": "^1.0.2",
+        "@sailshq/lodash": "^3.10.4",
+        "ansi-to-html": "^0.7.1",
+        "marked": "^3.0.4",
+        "node-cron": "2.0.3",
+        "npminstall": "^4.11.0",
+        "purdy": "^3.0.1",
+        "sails": "^1.4.3",
+        "sails-hook-apianalytics": "^2.0.5",
+        "sails-hook-organics": "^2.2.0",
+        "sails-hook-orm": "^3.0.2",
+        "sails-hook-sockets": "^2.0.1",
+        "sails-mongo": "^2.0.0",
+        "sails-mysql": "^1.0.1",
+        "sails-postgresql": "^2.0.0"
     },
     "devDependencies": {
-        "@babel/eslint-parser": "latest",
-        "eslint": "latest"
+        "@babel/eslint-parser": "^7.14.7",
+        "eslint": "^7.30.0",
+        "grunt": "^1.4.1",
+        "htmlhint": "^0.15.1",
+        "lesshint": "^6.3.7",
+        "nodemon": "^2.0.12",
+        "sails-hook-grunt": "^4.0.1"
+    },
+    "scripts": {
+        "dev": "nodemon --signal SIGINT index.js && exit 0",
+        "start": "sails lift",
+        "test": "npm run lint && npm run custom-tests && echo 'Done.'",
+        "lint": "node ./node_modules/eslint/bin/eslint.js . --max-warnings=0 --report-unused-disable-directives && echo '✔  Your .js files look so good.' && ./node_modules/htmlhint/bin/htmlhint -c ./.htmlhintrc views/*.ejs && ./node_modules/htmlhint/bin/htmlhint -c ./.htmlhintrc views/**/*.ejs && ./node_modules/htmlhint/bin/htmlhint -c ./.htmlhintrc views/**/**/*.ejs && ./node_modules/htmlhint/bin/htmlhint -c ./.htmlhintrc views/**/**/**/*.ejs && ./node_modules/htmlhint/bin/htmlhint -c ./.htmlhintrc views/**/**/**/**/*.ejs && ./node_modules/htmlhint/bin/htmlhint -c ./.htmlhintrc views/**/**/**/**/**/*.ejs && ./node_modules/htmlhint/bin/htmlhint -c ./.htmlhintrc views/**/**/**/**/**/**/*.ejs && echo '✔  So do your .ejs files.' && ./node_modules/lesshint/bin/lesshint assets/styles/ --max-warnings=0 && echo '✔  Your .less files look good, too.'",
+        "custom-tests": "echo \"(No other custom tests yet.)\" && echo"
     },
     "engines": {
-        "node": ">= 10"
+        "node": "^16.2"
     },
     "bugs": {
         "url": "https://github.com/Revadike/RevaBot/issues",

@@ -1,0 +1,87 @@
+<div id="plugin">
+    <account-notification-banner></account-notification-banner>
+
+    <div class="container pt-5 pb-5">
+        <h1><%= plugin._label %></h1>
+        <hr />
+        <% for (let prop of ["_singleInstance", "name", "version", "description", "author", "license", "repository", "homepage"].sort()) {
+
+            let value = plugin._package[prop] || plugin[prop];
+            if (!value) {
+                continue;
+            }
+            let result;
+            switch (prop) {
+                case "_singleInstance":
+                    result = value ? "Yes" : "No";
+                    break;
+
+                case "author":
+                    result = value.name || value;
+                    // if (value.email) {
+                    //     result += ` &lt;<a href="mailto:${value.email}"> ${value.email}</a>&lt;`;
+                    // }
+                    // if (value.url) {
+                    //     result += ` (<a href="${value.url}"> ${value.url}</a>)`;
+                    // }
+                    break;
+
+                case "repository":
+                    result = value.url || value;
+                    break;
+
+                default:
+                    result = value
+                    break;
+            }
+        %>
+        <div class="row">
+            <div class="col-3"><%= _.startCase(prop) %>:</div>
+            <div class="col"><strong><%= result %></strong></div>
+        </div>
+        <% } %>
+        <% if (readme) { %>
+        <hr />
+        <div class="card">
+            <div class="card-header">
+                README.md
+            </div>
+            <div class="card-body" id="readme">
+                <%- readme %>
+            </div>
+        </div>
+        <% } %>
+        <hr />
+        <div class="col-sm-6 form-inline">
+
+            <cloud-error v-if="cloudError"></cloud-error>
+
+            <a class="btn btn-primary" href="/plugin/<%= name %>/new"><i class="fa fa-plus-circle"
+                    aria-hidden="true"></i>
+                New instance</a>
+            <ajax-form action="updatePlugin" :syncing.sync="syncingUpdatePlugin" :cloud-error.sync="cloudError"
+                :form-data="formData" :form-rules="formRules" :form-errors.sync="formErrors"
+                @submitted="submittedForm()">
+                <input class="form-control" name="name" type="hidden" :class="[formErrors.name ? 'is-invalid' : '']"
+                    v-model.trim="formData.name">
+                <ajax-button :syncing="syncingUpdatePlugin" class="btn btn-success"><i class="fa fa-refresh"
+                        aria-hidden="true"></i>
+                    Check for updates
+                </ajax-button>
+            </ajax-form>
+            <ajax-form action="removePlugin" :syncing.sync="syncingRemovePlugin" :cloud-error.sync="cloudError"
+                :form-data="formData" :form-rules="formRules" :form-errors.sync="formErrors"
+                @submitted="submittedForm()">
+                <input class="form-control" name="name" type="hidden" :class="[formErrors.name ? 'is-invalid' : '']"
+                    v-model.trim="formData.name">
+                <ajax-button :syncing="syncingRemovePlugin" class="btn btn-danger"><i class="fa fa-minus-circle"
+                        aria-hidden="true"></i> Uninstall
+                </ajax-button>
+            </ajax-form>
+
+        </div>
+    </div>
+    <router-view></router-view>
+
+</div>
+<%- /* Expose locals as `window.SAILS_LOCALS` :: */ exposeLocalsToBrowser() %>

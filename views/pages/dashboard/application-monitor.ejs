@@ -1,0 +1,9 @@
+<div id="application-monitor" v-cloak>
+    <account-notification-banner></account-notification-banner>
+    <div class="container pt-5 pb-5">
+        <h1>Application Monitor</h1>
+        <hr />
+        <logger room-name="log-application"></logger>
+    </div>
+</div>
+<%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>

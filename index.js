@@ -1,25 +1,17 @@
-const Database = require("@revaplugin/database");
-const PluginManager = require("./classes/PluginManager"); // TODO: Convert to RevaPlugin
-
-(async() => {
-    // Init DB
-    let database = new Database();
-    await database.start();
-
-    // TODO: Dashboard (web admin panel)
-    // let dashboard = new Dashboard();
-    PluginManager.instances = {
-        database,
-        // dashboard,
+const EventEmitter = require("events");
+for (let i of ["log"]) {
+    const fn = global.console[i];
+    global.console[i] = (...args) => {
+        global.console.output.emit(i, ...args);
+        fn(...args);
     };
+}
+global.console.output = new EventEmitter();
+// global.console.output.on("log", () => {
+//     process.stdout.write("TEST");
+// });
 
-    // Init Plugins
-    await PluginManager.loadAll();
+const Server = require("./components/Server"); // TODO: Convert to RevaPlugin
 
-    // Init Tasks & Events
-    let taskList = Object.assign({}, ...Object.values(PluginManager.instances).map((instance) => instance.tasks));
-    let eventList = [].concat(...Object.values(PluginManager.instances).map((instance) => instance.events));
-
-    // eslint-disable-next-line no-console
-    console.log({ taskList, eventList });
-})();
+let server = new Server();
+server.start();

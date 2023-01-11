@@ -1,0 +1,9 @@
+<div id="edit-task" v-cloak>
+
+    <account-notification-banner></account-notification-banner>
+    <div class="container pt-5 pb-5">
+        <h1>{{ taskId ? "Edit Task" : "New Task" }}</h1>
+        <div id="form"></div>
+    </div>
+</div>
+<%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>

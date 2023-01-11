@@ -1,0 +1,48 @@
+<div id="plugin-scheduler" v-cloak>
+
+    <account-notification-banner></account-notification-banner>
+    <div class="container pt-5 pb-5">
+        <instance-switcher class="float-right"></instance-switcher>
+        <a href="./task/new" class="btn btn-secondary  float-right ml-1">
+            Task <i aria-hidden="true" class="fa fa-plus-circle ml-1"></i>
+        </a>
+
+        <h1>Scheduler</h1>
+        <hr />
+        <table class="table table-hover" id="table">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Runs At</th>
+                    <th scope="col">Created</th>
+                    <th scope="col">Updated</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="t of savedTasks">
+                    <td>{{ availableTasks[t.name].title || t.name }}</td>
+                    <td>{{ t.cron || t.event }}</td>
+                    <td>
+                        <js-timestamp :at="t.createdAt"></js-timestamp>
+                    </td>
+                    <td>
+                        <js-timestamp :at="t.updatedAt"></js-timestamp>
+                    </td>
+                    <td>
+                        <div class="btn-toolbar btn-group btn-group-sm">
+                            <a :href="'./task/edit/' + t.id" class="btn btn-secondary">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </a>
+                            <a :href="'./task/remove/' + t.id" class="btn btn-secondary">
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>

@@ -6,5 +6,14 @@
     "editor.defaultFormatter": "dbaeumer.vscode-eslint",
     "[javascript]": {
         "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-    }
+    },
+    "[html]": {
+        "editor.defaultFormatter": "HookyQR.beautify"
+    },
+    "beautify.language": {
+        "html": ["ejs", "html"],
+    },
+    "emmet.includeLanguages": {
+        "ejs": "html",
+    },
 }

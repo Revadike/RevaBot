@@ -1,0 +1,89 @@
+<div id="edit-application" v-cloak>
+    <account-notification-banner></account-notification-banner>
+    <div class="container pt-5 pb-5">
+        <div style="float:right;">
+            <br />Last modified: <js-timestamp :at="<%= config.updatedAt %>"></js-timestamp>
+        </div>
+        <h1>Application Settings</h1>
+        <ajax-form action="updateConfig" :syncing.sync="syncing" :cloud-error.sync="cloudError" :form-data="formData"
+            :form-rules="formRules" :form-errors.sync="formErrors" @submitted="submittedForm()">
+            <input class="form-control" id="id" name="id" type="hidden" :class="[formErrors.id ? 'is-invalid' : '']"
+                v-model.trim="formData.id">
+            <hr />
+            <div class="row mb-3">
+                <div class="col-sm-6">
+                    <h4>Server</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="port">Port</label>
+                        <input class="form-control" id="port" name="port" type="number"
+                            :class="[formErrors.port ? 'is-invalid' : '']" v-model.trim="formData.port"
+                            placeholder="1337" focus-first>
+                        <div class="invalid-feedback" v-if="formErrors.port">Please enter a valid port for the server.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="baseUrl">Base URL</label>
+                        <input class="form-control" id="baseUrl" name="baseUrl" type="text"
+                            :class="[formErrors.baseUrl ? 'is-invalid' : '']" v-model.trim="formData.baseUrl"
+                            placeholder="http://localhost">
+                        <div class="invalid-feedback" v-if="formErrors.baseUrl">Please enter the base URL of your
+                            RevaBot dashboard.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-6">
+                    <h4>Database</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="datastoreAdapter">Engine</label>
+                        <select class="form-control" id="datastoreAdapter" name="datastoreAdapter"
+                            :class="[formErrors.datastoreAdapter ? 'is-invalid' : '']"
+                            v-model.trim="formData.datastoreAdapter" placeholder="sails-disk">
+                            <option value="sails-disk">Disk</option>
+                            <option value="sails-mysql">MySQL</option>
+                            <option value="sails-postgresql">PostgreSQL</option>
+                            <option value="sails-mongo">MongoDB</option>
+                        </select>
+                        <div class="invalid-feedback" v-if="formErrors.datastoreAdapter">Please pick a valid database
+                            engine.</div>
+                    </div>
+                </div>
+                <div class="col-sm-6" v-if="formData.datastoreAdapter !== 'sails-disk'">
+                    <div class="form-group">
+                        <label for="datastoreUrl">Connection URL</label>
+                        <input class="form-control" id="datastoreUrl" name="datastoreUrl" type="datastoreUrl"
+                            :class="[formErrors.datastoreUrl ? 'is-invalid' : '']" v-model.trim="formData.datastoreUrl"
+                            placeholder="mysql://root:pwd@localhost:3306/my_db_name'">
+                        <div class="invalid-feedback" v-if="formErrors.datastoreUrl">Please enter a <a
+                                href="https://sailsjs.com/documentation/reference/configuration/sails-config-datastores#?the-connection-url">valid
+                                connection URL</a>
+                            (format: protocol://user:password@host:port/database).
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <cloud-error v-if="cloudError"></cloud-error>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group text-right">
+                        <a class="btn btn-outline-dark" href="/welcome">Cancel</a>
+                        <ajax-button type="submit" :syncing="syncing" class="btn btn-dark">Save changes</ajax-button>
+                    </div>
+                </div>
+            </div>
+        </ajax-form>
+    </div>
+</div>
+<%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>

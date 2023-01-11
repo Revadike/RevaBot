@@ -1,0 +1,10 @@
+<div id="plugin-monitor" v-cloak>
+    <account-notification-banner></account-notification-banner>
+    <div class="container pt-5 pb-5">
+        <instance-switcher class="float-right"></instance-switcher>
+        <h1>Monitor</h1>
+        <hr />
+        <logger ref="logger"></logger>
+    </div>
+</div>
+<%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>
